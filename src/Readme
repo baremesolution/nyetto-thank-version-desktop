@@ -1,0 +1,51 @@
+CellRangeAddress range1 = new CellRangeAddress(8, 8, 4, 6);
+Cette ligne crée un objet CellRangeAddress pour représenter une plage de cellules fusionnées dans une feuille Excel. 
+La plage fusionnée va de la ligne 8 à la ligne 8 (une seule ligne) et des colonnes 4 à 6.
+
+CellRangeAddress range2 = new CellRangeAddress(8, 8, 7, 10);
+Cette ligne crée un autre objet CellRangeAddress pour représenter une deuxième plage de cellules fusionnées. Cette plage fusionnée va 
+également de la ligne 8 à la ligne 8 et des colonnes 7 à 10.
+
+sheet.addMergedRegion(range1);
+Cette ligne fusionne les cellules définies par range1 dans la feuille sheet.
+
+sheet.addMergedRegion(range2);
+Cette ligne fusionne les cellules définies par range2 dans la feuille sheet.
+
+Row headerRow = sheet.createRow(8);
+Cette ligne crée une nouvelle ligne à la position 8 dans la feuille sheet.
+
+org.apache.poi.ss.usermodel.Cell cellCertificat = headerRow.createCell(4);
+Cette ligne crée une cellule dans la colonne 4 de la ligne headerRow (ligne 8) et l'assigne à la variable cellCertificat.
+
+cellCertificat.setCellValue("CERTIFICAT DE BAREMAGE");
+Cette ligne définie la valeur de la cellule cellCertificat à "CERTIFICAT DE BAREMAGE".
+
+cellCertificat.setCellStyle(style);
+Cette ligne applique un style (style) à la cellule cellCertificat.
+
+org.apache.poi.ss.usermodel.Cell cellMincommerce = headerRow.createCell(8);
+Cette ligne crée une autre cellule dans la colonne 8 de la ligne headerRow (ligne 8) et l'assigne à la variable cellMincommerce.
+
+cellMincommerce.setCellValue("/" + (LocalDateTime.now()).getYear() + "/MINCOMMERCE/DMQP/SIV");
+Cette ligne définie la valeur de la cellule cellMincommerce en utilisant une chaîne de caractères qui contient une concaténation 
+de "/" avec l'année courante extraite de LocalDateTime.now().getYear(), suivi de "/MINCOMMERCE/DMQP/SIV".
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Remarque:Lorsque qu'on travaille avec des cellules fusionnées dans Excel, voici quelques points importants à prendre en compte :
+
+L'adresse de la cellule fusionnée : 
+Lorsque vous fusionnez des cellules, l'adresse de la cellule renvoie à la première cellule du groupe fusionné. Par exemple, si vous 
+fusionnez les cellules A1 et B1, l'adresse de la cellule fusionnée sera A1. Cela signifie que vous devez accéder aux données de la 
+cellule fusionnée via cette adresse.
+
+La largeur et la hauteur des cellules fusionnées : 
+Lorsque vous fusionnez des cellules, elles acquièrent la largeur et la hauteur de la cellule de départ. Par exemple, si vous 
+fusionnez les cellules A1 à B1, la cellule fusionnée aura la largeur de deux colonnes (A et B) et la hauteur d'une seule ligne (1). 
+Cela peut avoir un impact sur le positionnement et l'accès aux autres cellules de la feuille de calcul.
+
+L'accès aux cellules adjacentes : 
+Lorsque vous travaillez avec des cellules fusionnées, il est important de comprendre que les cellules adjacentes à la cellule 
+fusionnée peuvent sembler vides, mais elles font toujours partie de la fusion. Par exemple, si vous fusionnez les cellules A1 à B1, 
+les cellules C1, D1, etc., semblent vides, mais elles font toujours partie de la fusion. Vous devez prendre cela en compte lors de 
+l'accès et du positionnement des cellules adjacentes

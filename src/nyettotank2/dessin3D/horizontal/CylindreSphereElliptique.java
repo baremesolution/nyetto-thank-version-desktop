@@ -1,0 +1,98 @@
+package nyettotank2.dessin3D.horizontal;
+
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
+import javax.swing.JPanel;
+
+
+public class CylindreSphereElliptique extends JPanel {
+    
+	  private float diam, longueur, flecheg, fleched;
+
+	    public CylindreSphereElliptique(float diam, float longueur, float flecheg, float fleched) {
+	        this.diam = diam;
+	        this.longueur = longueur;
+	        this.fleched = fleched;
+	        this.flecheg = flecheg;
+
+	    }
+
+	
+      public void paintComponent(Graphics g){
+//Vous verrez cette phrase chaque fois que la méthode sera
+g.setColor(Color.red);
+// tracer des deux droites horizontales
+g.drawLine(this.getWidth()/6, this.getHeight()/10, this.getWidth()-100, this.getHeight()/10);
+g.drawLine(this.getWidth()/6, 200 + this.getHeight()/10, this.getWidth()-100, 200 + this.getHeight()/10);
+
+
+g.setColor(Color.BLACK); 
+//   g.drawArc(this.getWidth()/6-50+17, this.getHeight()/10, 70, 100, 90, 180);
+int x1 = this.getWidth()/6 , y1 = this.getHeight()/10 , x2=this.getWidth()-100, y2=this.getHeight()/10 + 200;
+int z2 = (y1 + y2)/2;
+
+int z= (x1 + x2)/2 ; z-=15;
+
+g.drawLine(z , y1 , z , y1 - 10);
+g.drawLine(z + 30 , y1 , z + 30 , y1 - 10);
+g.drawLine(z , y1 -10 , z + 30, y1 - 10);
+
+float angle=90, cxi = x1, cyi = y1 + 100;
+
+        Graphics2D area = (Graphics2D) g;
+          GeneralPath courbe = new GeneralPath();
+        courbe.moveTo(x1, y1);
+        while(angle<=270) {
+                angle +=0.5;
+             float   x11 = (float) (cxi + 70*Math.cos( Math.PI*angle/180 ));
+             float    y11 = (float) (cyi - 100*Math.sin( Math.PI*angle/180 ));
+                // courbe.lineTo(50 + val, 450 - fonction.interpolate(val) );
+                courbe.lineTo(x11, y11);
+
+        }
+        
+        area.draw(courbe);
+
+// a remettre  ------- g.drawArc(this.getWidth()/6-50+17, this.getHeight()/10, 70, 100, 90, 180);
+//g.drawArc(this.getWidth()/6-50+17, this.getHeight()/10, 70, 100, -90, 90);
+//g.drawArc(this.getWidth()/6-50+17, this.getHeight()/10, 70, 100, 0, 90);
+
+g.setColor(Color.BLACK); 
+//g.drawArc(this.getWidth()-135, this.getHeight()/10, 70, 100, 90, 180);
+//g.drawArc(this.getWidth()-135, this.getHeight()/10, 70, 100, 0, 270);
+g.drawArc(this.getWidth()-200, this.getHeight()/10, 200, 200, -90, 180);
+
+g.setColor(Color.RED); 
+//barre verticale au centre
+g.drawLine( ( this.getWidth()/6 + this.getWidth()-100 )/2, this.getHeight()/10, ( this.getWidth()/6 + this.getWidth()-100 )/2, 200 + this.getHeight()/10);
+// FLECHE POUR LE HAUT
+g.drawLine( ( this.getWidth()/6 + this.getWidth()-100 )/2, this.getHeight()/10, ( this.getWidth()/6 + this.getWidth()-100 )/2 + 5, this.getHeight()/10 + 6);
+g.drawLine( ( this.getWidth()/6 + this.getWidth()-100 )/2, this.getHeight()/10, ( this.getWidth()/6 + this.getWidth()-100 )/2 - 5, this.getHeight()/10 + 6);
+
+// FLECHE POUR LE BAS
+g.drawLine( ( this.getWidth()/6 + this.getWidth()-100 )/2, 200 + this.getHeight()/10, ( this.getWidth()/6 + this.getWidth()-100 )/2 + 6, 200 + this.getHeight()/10 - 6);
+g.drawLine( ( this.getWidth()/6 + this.getWidth()-100 )/2, 200 + this.getHeight()/10, ( this.getWidth()/6 + this.getWidth()-100 )/2 - 6, 200 + this.getHeight()/10 - 6);
+
+// bac du recipient
+g.drawLine(this.getWidth()/6, 200 + this.getHeight()/10 + 3, this.getWidth()/6, 200 + this.getHeight()/10 + 30);
+g.drawLine(this.getWidth()-100, 200 + this.getHeight()/10 + 3, this.getWidth()-100, 200 + this.getHeight()/10 + 30);
+g.drawLine(this.getWidth()/6 + 10, 200 + this.getHeight()/10 + 20, this.getWidth()-100 - 10, 200 + this.getHeight()/10 + 20);
+
+g.setColor(Color.BLUE); 
+
+g.drawString(" " + diam, ( this.getWidth()/6 + this.getWidth()-100 )/2 + 5, this.getHeight()/10 + 100);
+g.drawString(" " + longueur, ( this.getWidth()/6 + 10 + this.getWidth()-100 - 10 )/2 + 5, 200 + this.getHeight()/10 + 35);
+
+g.drawLine( this.getWidth()-100 , z2, this.getWidth(), z2);
+g.drawLine( this.getWidth()/6 , z2, this.getWidth()/6 - 100, z2);
+
+
+g.drawString(" " + fleched,  this.getWidth()-40 , z2 - 10);
+g.drawString(" " + flecheg, this.getWidth()/6 - 50, z2 -10);
+    }
+    
+    
+}
