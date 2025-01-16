@@ -21,6 +21,10 @@ import nyettotank2.metier.BaremeArtisan;
 //import nyettotank.dessin3D;
 
 
+ 
+
+
+
 public class DonneeGeometrique extends javax.swing.JPanel {
 
     private static HashMap valueGeometryData = new HashMap();
@@ -118,7 +122,9 @@ public class DonneeGeometrique extends javax.swing.JPanel {
                         panelOrientation.setVisible(false);
                         sensRotationOblique = "";
                     } else if (selectedIndex == 2) {
-                        panelOrientation.setVisible(true);
+                        if (comboFormeCapacite.getSelectedItem().toString().equalsIgnoreCase("cylindrique") || comboFormeCapacite.getSelectedItem().toString().equalsIgnoreCase("Cylindrical") || comboFormeCapacite.getSelectedItem().toString().equalsIgnoreCase("Zylindrisch")) {
+                                                     panelOrientation.setVisible(true);
+                                  }
                         sensRotationOblique = "Trigo";
                     }
 
