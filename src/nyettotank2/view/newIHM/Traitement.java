@@ -27,8 +27,10 @@ public class Traitement extends javax.swing.JPanel {
     private JPanel jPanel7 = new JPanel();
     private JPanel panelFigure = new JPanel();
     private String typeDonnee = MainView.getTypeDonne();
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
-    private DataResumeDialog dataResumeDialog = new DataResumeDialog(null, "recapitulatif des données saisies".toUpperCase(), true);
+
+    private DataResumeDialog dataResumeDialog = new DataResumeDialog(null, manageInternationalize.translate("reacp_input_datas") .toUpperCase(), true);
     private BaremeArtisan bareme = new BaremeArtisan();
 
     public Traitement() {
@@ -828,7 +830,6 @@ public class Traitement extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> typeVolumeValue;
     // End of variables declaration//GEN-END:variables
 
-    private ManageInternationalize manageInternationalize = new ManageInternationalize();
     
     public void traductionLabel() {
 

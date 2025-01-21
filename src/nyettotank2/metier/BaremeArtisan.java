@@ -50,32 +50,6 @@ import nyettotank2.utilitaires.ConfigureImageButton;
 import nyettotank2.utilitaires.ManageInternationalize;
 import nyettotank2.view.newIHM.MainView;
 
-//
-//import com.lowagie.text.Element;
-//import java.awt.Color;
-//import java.awt.Component;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.nio.file.Files;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
-//import java.nio.file.StandardCopyOption;
-//import java.time.LocalDate;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-//import javax.swing.JOptionPane;
-//import javax.swing.JPanel;
-//import jxl.write.WritableSheet;
-//import jxl.write.WritableWorkbook;
-//import jxl.write.WriteException;
-//import nyettotank2.view.newIHM.MainView;
-//import org.apache.poi.ss.usermodel.Font;
-//import org.apache.poi.xwpf.usermodel.Document;
 public class BaremeArtisan {
 
     private JOptionPane location = new JOptionPane();

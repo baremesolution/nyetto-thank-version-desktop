@@ -16,7 +16,6 @@ public class Sline {
     public Sline(List<Float> x, List<Double> y) {
         if (x == null || y == null || x.size() != y.size() || x.size() < 3) {
             JOptionPane.showMessageDialog(null, "Il doit y avoir au moins trois points de contrôles, et les tableaux doivent être de longueur égale.", "", JOptionPane.ERROR_MESSAGE);
-            throw new IllegalArgumentException("Données invalides pour l'interpolation.");
         }
 
         double[] abcisse = new double[x.size()];

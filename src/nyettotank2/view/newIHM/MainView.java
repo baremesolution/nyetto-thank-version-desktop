@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import nyettotank2.utilitaires.ConfigureImageButton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class MainView extends javax.swing.JFrame {
 
@@ -46,6 +47,8 @@ public class MainView extends javax.swing.JFrame {
     Color DefaultColor, ClickedColor;
     private ButtonGroup buttonGroupForTypeData = new ButtonGroup();
     private ButtonGroup buttonGroupForGeometrie = new ButtonGroup();
+        private ManageInternationalize manageInternationalize = new ManageInternationalize();
+
 
     public MainView() {
         initComponents();
@@ -470,7 +473,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
-        int option = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir quitter l'application?", "Quitter l'application", JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(this, manageInternationalize.translate("message_close_application"), manageInternationalize.translate("confirm_close_application"), JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
@@ -841,24 +844,17 @@ public class MainView extends javax.swing.JFrame {
                     //
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion.png"))); // NOI18N
                     Thread.sleep(1000);
-                    System.out.println("un");
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion1.png"))); // NOI18N
-                    System.out.println("deux");
                     Thread.sleep(1000);
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tank.jpg"))); // NOI18N
-                    System.out.println("trois");
                     Thread.sleep(1000);
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion3.png"))); // NOI18N
-                    System.out.println("quatre");
                     Thread.sleep(1000);
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion4.jpeg"))); // NOI18N
-                    System.out.println("cinq");
                     Thread.sleep(1000);
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion5.png"))); // NOI18N
-                    System.out.println("six");
                     Thread.sleep(1000);
                     couvertureImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion6.png"))); // NOI18N
-                    System.out.println("sept");
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);

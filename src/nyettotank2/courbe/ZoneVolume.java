@@ -7,6 +7,7 @@ import java.awt.geom.GeneralPath;
 import java.util.List;
 import javax.swing.JPanel;
 import nyettotank2.metier.Sline;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 /**
  *
@@ -16,6 +17,7 @@ public class ZoneVolume extends JPanel {
 
     private List<Float> x;
      private List<Double> y;
+     private ManageInternationalize manageInternationalize = new ManageInternationalize();
     private String uniteVolume = "", uniteHeight = "";
 
     public ZoneVolume(List<Float> x, List<Double> y, String h, String v) {
@@ -36,8 +38,8 @@ public class ZoneVolume extends JPanel {
         g.drawLine(470, 450, 50, 450);
         g.drawLine(50, 450, 50, 30);
 
-        g.drawString("HAUTEUR(" + uniteHeight.toUpperCase() + ")", 475, 450);
-        g.drawString("VOLUME(" + uniteVolume.toUpperCase() + ")", 60, 30);
+        g.drawString(manageInternationalize.translate("hauteur") +"(" + uniteHeight.toUpperCase() + ")", 475, 450);
+        g.drawString(manageInternationalize.translate("volume") +"(" + uniteVolume.toUpperCase() + ")", 60, 30);
 
         Graphics2D area = (Graphics2D) g;
         GeneralPath triangle = new GeneralPath();

@@ -727,30 +727,12 @@ public class InfoTypeView extends javax.swing.JPanel {
         String logo = logoLabel.getIcon() != null ? logoLabel.getIcon().toString() : "";
         ConfigureImageButton configureImageButton = new ConfigureImageButton();
 
-        // Vérifier si le logo existe déjà
-//        File logoFile = null;
-//        if (logoLabel.getIcon() != null) {
-//            logoFile = configureImageButton.showImage(btnAddLogo, logoLabel, 150, 150, true);
-//            if (logoFile != null) {
-//                configureImageButton.saveImage(logoFile, logo);
-//            }
-//        }
-//
-//        File signatureFile = null;
-//        if (signatureLabel.getIcon() != null) {
-//            signatureFile = configureImageButton.showImage(btnAddsignature, signatureLabel, 150, 150, true);
-//            if (signatureFile != null) {
-//                configureImageButton.saveImage(signatureFile, signature);
-//            }
-//        }
         File logoFile = null;
         if (logoLabel.getIcon() != null) {
-            //logoFile = configureImageButton.showImage(btnAddLogo, logoLabel, 150, 150, true);
         }
 
         File signatureFile = null;
         if (signatureLabel.getIcon() != null) {
-            //signatureFile = configureImageButton.showImage(btnAddsignature, signatureLabel, 150, 150, true);
         }
 
         boolean isNotEmpty = !chefOperation.isEmpty() || !lieuOperation.isEmpty()
@@ -785,14 +767,12 @@ public class InfoTypeView extends javax.swing.JPanel {
             infoGenerale.put("fin des travaux", finTravaux);
             JOptionPane.showMessageDialog(null, manageInternationalize.translate("enroll_message_data_window_infotype"), manageInternationalize.translate("success"), JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Aucune information n'a été renseignée.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, manageInternationalize.translate("not_information_provide"), manageInternationalize.translate("success"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
        
-
-
     private void showImageErrorDialog(String message) {
-        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, manageInternationalize.translate("code_error_message"), JOptionPane.ERROR_MESSAGE);
     }
 
 

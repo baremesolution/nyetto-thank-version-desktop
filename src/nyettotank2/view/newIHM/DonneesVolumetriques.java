@@ -518,7 +518,7 @@ public class DonneesVolumetriques extends javax.swing.JPanel {
         
      }
 
-        private ManageInternationalize manageInternationalize = new ManageInternationalize();
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel allPanel;

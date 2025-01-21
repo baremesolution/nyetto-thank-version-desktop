@@ -349,7 +349,7 @@ public class DonneeGeometrique extends javax.swing.JPanel {
 
     }
 
-      class ShowPanelByFormeCapacityV2 implements ItemListener {
+    class ShowPanelByFormeCapacityV2 implements ItemListener {
 
         @Override
         public void itemStateChanged(ItemEvent e) {
@@ -1189,6 +1189,7 @@ public class DonneeGeometrique extends javax.swing.JPanel {
         formsfigurePanel.revalidate();
         formsfigurePanel.repaint();
         }
+        
     }//GEN-LAST:event_drawActionPerformed
 
     public void dessinerFormeRayonCarre(String nature_fond_g, String nature_fond_d) {

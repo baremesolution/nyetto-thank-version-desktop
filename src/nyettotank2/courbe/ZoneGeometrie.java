@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.swing.JPanel;
 import nyettotank2.metier.BaremeArtisan;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class ZoneGeometrie extends JPanel {
 
@@ -16,6 +17,8 @@ public class ZoneGeometrie extends JPanel {
     private BaremeArtisan bareme = new BaremeArtisan();
     private HashMap data = new HashMap();
     private HashMap info = new HashMap();
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
+
 
     public ZoneGeometrie(HashMap info, HashMap data) {
         this.data = data;
@@ -34,8 +37,8 @@ public class ZoneGeometrie extends JPanel {
 
         g.drawLine(470, 450, 50, 450);
         g.drawLine(50, 450, 50, 30);
-        g.drawString("HAUTEUR(" + uniteHeight.toUpperCase() + ")", 475, 450);
-        g.drawString("VOLUME(" + uniteVolume.toUpperCase() + ")", 60, 30);
+        g.drawString(manageInternationalize.translate("hauteur") + "(" + uniteHeight.toUpperCase() + ")", 475, 450);
+        g.drawString( manageInternationalize.translate("volume") + "(" + uniteVolume.toUpperCase() + ")", 60, 30);
 
         String formeCapacite = info.get("forme de la capacite").toString().toUpperCase();
         float diametreUnite = 0;
