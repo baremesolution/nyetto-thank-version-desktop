@@ -244,19 +244,7 @@ public class WordFile {
                     + " DE " + verifie(info, "lieu des operations"));
             r.setBold(true);
 
-            String logoName = ConfigureImageButton.logoName;
-
-            if (!logoName.isEmpty()) {
-                int format = giveFormatFile(logoName);
-                String imgFile = logoName;
-
-                p = doc.createParagraph();
-                p.setAlignment(ParagraphAlignment.CENTER);
-                r = p.createRun();
-                try (FileInputStream is = new FileInputStream(imgFile)) {
-                    r.addPicture(is, format, imgFile, Units.toEMU(350), Units.toEMU(140)); // 200x200 pixels
-                }
-            }
+          //  String logoName = ConfigureImageButton.logoName;
 
             p = doc.createParagraph();
             r = p.createRun();

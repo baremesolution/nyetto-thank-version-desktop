@@ -52,7 +52,7 @@ public class MainView extends javax.swing.JFrame {
         ConfigureImageButton.sterchImage(logo);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/nyettoTankFtLogo.png")));
-        this.setTitle("NyettoFT Tank Solution");
+        this.setTitle("Nyettoft Tank");
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setResizable(false);

@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import nyettotank2.metier.Line;
 import nyettotank2.utilitaires.FormValidator;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class DonneesVolumetriques extends javax.swing.JPanel {
 
@@ -332,6 +333,11 @@ public class DonneesVolumetriques extends javax.swing.JPanel {
         btnDeleteLine.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         btnDeleteLine.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteLine.setText("Supprimer une ligne");
+        btnDeleteLine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteLineActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -473,32 +479,46 @@ public class DonneesVolumetriques extends javax.swing.JPanel {
 
     }//GEN-LAST:event_comboMethodeValueActionPerformed
 
+    private void btnDeleteLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteLineActionPerformed
+
     private void saveDonneeVolumetrique() {
+        
+        if( data.size()>=2 ){
+         
         valueVolumetryData.clear();
+                valueVolumetryInfo.clear();
+
 
         valueVolumetryData.put("mode operatoire", comboMethodeValue.getSelectedItem().toString());
 
         if (Pattern.compile("[0-9]+\\.[\\d]+|\\d+").matcher(fieldDiametre.getText()).matches()) {
             valueVolumetryData.put("diametre", fieldDiametre.getText());
-        } else {
-            return;
-        }
+        } 
 
         if (fieldVolumeResiduel.getText().length() > 1) {
             valueVolumetryData.put("volume residuel", fieldVolumeResiduel.getText());
         } else {
             valueVolumetryData.put("volume residuel", "0");
-            //return;
         }
 
-        valueVolumetryInfo.clear();
         valueVolumetryInfo.put("unite de volume", comboUnitVolume.getSelectedItem().toString());
         valueVolumetryInfo.put("unite des hauteurs", comboUnitHeight.getSelectedItem().toString());
         valueVolumetryInfo.put("orientation", comboOrientation.getSelectedItem().toString());
         valueVolumetryInfo.put("forme capacite", comboFormeCapacity.getSelectedItem().toString());
 
-        JOptionPane.showMessageDialog(null, "Vos données ont bien été pris en compte!.", "Succès", JOptionPane.INFORMATION_MESSAGE);
-    }
+        JOptionPane.showMessageDialog(null, manageInternationalize.translate("enroll_message_data_window_infotype"), manageInternationalize.translate("success"), JOptionPane.INFORMATION_MESSAGE);
+        
+        }
+        else {
+         JOptionPane.showMessageDialog(null, manageInternationalize.translate("length_table_less_two"),
+                        manageInternationalize.translate("code_error_message").toUpperCase(), JOptionPane.ERROR_MESSAGE);
+        }
+        
+     }
+
+        private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel allPanel;

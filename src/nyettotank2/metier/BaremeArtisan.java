@@ -46,6 +46,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import nyettotank2.courbe.ZoneGeometrie;
 import nyettotank2.courbe.ZoneVolume;
+import nyettotank2.utilitaires.ConfigureImageButton;
+import nyettotank2.utilitaires.ManageInternationalize;
 import nyettotank2.view.newIHM.MainView;
 
 //
@@ -79,6 +81,7 @@ public class BaremeArtisan {
     private JOptionPane location = new JOptionPane();
     private JOptionPane jop3 = new JOptionPane();
     private JOptionPane nom_fichier = new JOptionPane();
+    private ManageInternationalize manageInternationalize =  new ManageInternationalize();
 
     public String verifie(HashMap s, String key) {
         if (s.containsKey(key)) {
@@ -1580,8 +1583,7 @@ public class BaremeArtisan {
             int x = 5, y = 4;
 
             WritableWorkbook workbook;
-            String documentDirectory = System.getProperty("user.home") + "/Documents/";
-            String nyettofDirectory = documentDirectory + "NyettoftTank_files/";
+            String nyettofDirectory = System.getProperty("user.home") + "/Documents/" + "NyettoftTank_files/";
 
             // Créer le répertoire si nécessaire
             File nyettofFile = new File(nyettofDirectory);
@@ -1589,7 +1591,10 @@ public class BaremeArtisan {
                 nyettofFile.mkdirs();
             }
             String filePath = nyettofDirectory + nom + ".xls";
-            try {
+            
+            if( !Files.exists( Paths.get(filePath)) ) {
+            
+              try {
 
                 workbook = Workbook.createWorkbook(new File(filePath));
                 WritableSheet sheet = workbook.createSheet("sheet1", 0);
@@ -1688,14 +1693,18 @@ public class BaremeArtisan {
                 Logger.getLogger(BaremeArtisan.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            location.showMessageDialog(null, "Votre FICHER SE TROUVE DANS \n  " + filePath,
-                    "LOCALISATION DU FICHIER",
-                    JOptionPane.INFORMATION_MESSAGE);
+             location.showMessageDialog(null, manageInternationalize.translate("emplacement_save_file") + " \n  " + filePath, manageInternationalize.translate("title_dialog_save_file"),
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+            
+             location.showMessageDialog(null, manageInternationalize.translate("filename_table_already_existing") + " \n  " + manageInternationalize.translate("filename_table_already_existing_end"), manageInternationalize.translate("code_error_message"),
+                        JOptionPane.ERROR_MESSAGE);
+             
+            }
+          
         } else {
-            jop3.showMessageDialog(null,
-                    "veiller renseigner les differentes valeurs \n des parties donnee geometrique et/ou \n information generales"
-                            .toUpperCase(),
-                    "Message d'erreur".toUpperCase(), JOptionPane.ERROR_MESSAGE);
+            jop3.showMessageDialog(null, manageInternationalize.translate("insuficient_data_generate_table") + " \n " + manageInternationalize.translate("insuficient_data_generate_table_end").toUpperCase(),
+                  manageInternationalize.translate("code_error_message").toUpperCase(), JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -2061,9 +2070,7 @@ public class BaremeArtisan {
 
                     be = be2 - be1;
 
-                    System.out.println(" ellipise  ellipse  " + t + "  -----------------------    " + be);
                     vol_total += be * Math.PI * 2 / 3;
-                    System.out.println(" ellipise  ellipse  -----------------------    " + vol_total);
 
                 }
 
@@ -2093,12 +2100,10 @@ public class BaremeArtisan {
 
                 if (t <= rayon) {
                     vol_total = 2 * Math.PI * Math.pow(t, 2) * (2 * fleche_d - t) / 3;
-                    System.out.println(" spharique " + t + " spherique  -----------------------    " + vol_total);
                 } else if (rayon < t && t <= longueur + rayon) {
                     vol_total = (double) (Math.PI
                             * (diametre * diametre * (t - fleche_d) / 4
                             + 2 * (rayon * rayon * rayon) / 3));
-                    System.out.println(" spharique " + t + " spherique  -----------------------    " + vol_total);
 
                 } else if ((rayon + longueur) < t && t <= (longueur + diametre)) {
                     vol_total = (double) (Math.PI
@@ -2108,7 +2113,6 @@ public class BaremeArtisan {
                     bee1 = rayon * rayon * rayon;
                     bee2 = (2 * rayon + longueur - t) * (2 * rayon + longueur - t) * (t - longueur);
                     vol_total += 2 * Math.PI * (bee1 - bee2) / 3;
-                    System.out.println(" spharique " + t + " spherique  -----------------------    " + vol_total);
 
                 }
 
@@ -3468,8 +3472,7 @@ public class BaremeArtisan {
 
         String nom = (String) info.get("certificat");
 
-        String documentDirectory = System.getProperty("user.home") + "/Documents/";
-        String nyettofDirectory = documentDirectory + "NyettoftTank_files/";
+        String nyettofDirectory = System.getProperty("user.home") + "/Documents/" + "NyettoftTank_files/";
 
         File nyettofFile = new File(nyettofDirectory);
         if (!(nyettofFile.exists())) {
@@ -3477,8 +3480,9 @@ public class BaremeArtisan {
         }
 
         String filePath = nyettofDirectory + nom + ".pdf";
-
-        try {
+        if( !Files.exists( Paths.get(filePath)) ) {
+        
+          try {
             LocalDate date = LocalDate.now();
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
             document.open();
@@ -3632,10 +3636,12 @@ public class BaremeArtisan {
             Paragraph pied = new Paragraph("\n\n\n\n\n\n\n");
             document.add(pied);
 
-            if (signature != null) {
-                Path cible = Paths.get("xxx3.jpg");
+            if (signature != null && !ConfigureImageButton.getExtensionSignature().isEmpty()) {
+                Path cible = Paths.get("xxx3." + ConfigureImageButton.getExtensionSignature());
+                if( !Files.exists(cible) )
+                    Files.createFile(cible);
                 Files.copy(signature, cible, StandardCopyOption.REPLACE_EXISTING);
-                Image img = Image.getInstance("xxx3.jpg");
+                Image img = Image.getInstance("xxx3." + ConfigureImageButton.getExtensionSignature());
 
                 img.scaleAbsolute(200, 100);
                 img.setAlignment(Element.ALIGN_MIDDLE);
@@ -4120,9 +4126,11 @@ public class BaremeArtisan {
             document.add(Chunk.NEWLINE);
 
             if (logo != null) {
-                Path cible = Paths.get("xxx.jpg");
+                Path cible = Paths.get("xxx." + ConfigureImageButton.getExtensionLogo());
+                if( !Files.exists(cible) )
+                    Files.createFile(cible);
                 Files.copy(logo, cible, StandardCopyOption.REPLACE_EXISTING);
-                Image img = Image.getInstance("xxx.jpg");
+                Image img = Image.getInstance("./xxx." + ConfigureImageButton.getExtensionLogo());
 
                 img.scaleAbsolute(50, 50);
                 img.setAlignment(Element.ALIGN_LEFT);
@@ -4453,8 +4461,17 @@ public class BaremeArtisan {
             Logger.getLogger(BaremeArtisan.class.getName()).log(Level.SEVERE, null, ex);
         }
         document.close();
-        location.showMessageDialog(null, "Votre FICHER SE TROUVE DANS \n  " + filePath, "LOCALISATION DU FICHIER",
-                JOptionPane.INFORMATION_MESSAGE);
+        location.showMessageDialog(null, manageInternationalize.translate("emplacement_save_file") + " \n  " + filePath, manageInternationalize.translate("title_dialog_save_file"),
+                        JOptionPane.INFORMATION_MESSAGE);
+        
+        } 
+        else {
+        
+        location.showMessageDialog(null, manageInternationalize.translate("filename_pdf_already_existing") + " \n  " + manageInternationalize.translate("filename_pdf_already_existing_end"), manageInternationalize.translate("code_error_message"),
+                        JOptionPane.ERROR_MESSAGE);
+        }
+
+      
 
     }
 

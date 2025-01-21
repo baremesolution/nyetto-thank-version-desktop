@@ -11,12 +11,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import nyettotank2.model.InfoType;
 import nyettotank2.utilitaires.ConfigureImageButton;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class InfoTypeView extends javax.swing.JPanel {
 
-    private InfoType infoType = new InfoType();
     private static InputStream logoImage;
     private static InputStream signatureImage;
     private static HashMap infoGenerale = new HashMap();
@@ -570,19 +569,15 @@ public class InfoTypeView extends javax.swing.JPanel {
     InputStream previousLogoImage = logoImage; // Save the previous image stream
 
     try {
-        File logoFile = configureImageButton.showImage(btnAddLogo, logoLabel, 150, 150, logoLabel.getIcon() != null);
+        File logoFile = configureImageButton.showImageLogo(btnAddLogo, logoLabel, 150, 150, logoLabel.getIcon() != null);
         if (logoFile.getAbsolutePath() != null) {
-            System.out.println("Logo sélectionné: " + logoFile.getAbsolutePath());
             logoImage = logoFile.toURI().toURL().openStream();
             if (previousLogoImage != null) {
                 previousLogoImage.close();
             }
-        } else {
-            System.out.println("Aucun logo sélectionné.");
-        }
+        } 
     } catch (IOException ex) {
-        Logger.getLogger(InfoType.class.getName()).log(Level.SEVERE, "Erreur lors du chargement de l'image du logo", ex);
-        showImageErrorDialog(ex.getMessage() + " - " + ex.getCause());
+            showImageErrorDialog( manageInternationalize.translate("success_save_logo_image") + ex.getMessage());
     }
     }//GEN-LAST:event_btnAddLogoActionPerformed
 
@@ -599,7 +594,7 @@ public class InfoTypeView extends javax.swing.JPanel {
         InputStream previousSignatureImage = signatureImage; // Sauvegarde de l'image précédente
 
         try {
-            File signatureFile = configureImageButton.showImage(btnAddsignature, signatureLabel, 150, 150, signatureLabel.getIcon() != null);
+            File signatureFile = configureImageButton.showImageSignature(btnAddsignature, signatureLabel, 150, 150, signatureLabel.getIcon() != null);
 
             if (signatureFile != null) {
                 if (previousSignatureImage != null) {
@@ -608,8 +603,7 @@ public class InfoTypeView extends javax.swing.JPanel {
                 signatureImage = signatureFile.toURI().toURL().openStream();
             }
         } catch (IOException ex) {
-            Logger.getLogger(InfoType.class.getName()).log(Level.SEVERE, "Erreur lors du chargement de l'image de la signature", ex);
-            showImageErrorDialog("Erreur lors du chargement de l'image de la signature: " + ex.getMessage());
+            showImageErrorDialog( manageInternationalize.translate("success_save_signature_image") + ex.getMessage());
         }
     }//GEN-LAST:event_btnAddsignatureActionPerformed
 
@@ -631,7 +625,7 @@ public class InfoTypeView extends javax.swing.JPanel {
         try {
             saveInfoType();
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(InfoType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InfoTypeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_validerButtonInfosTypeActionPerformed
@@ -771,15 +765,7 @@ public class InfoTypeView extends javax.swing.JPanel {
             if (signatureFile != null) {
                 configureImageButton.saveImage(signatureFile, signature);
             }
-            infoType.setChefOperation(chefOperation);
-            infoType.setLieuOperation(lieuOperation);
-            infoType.setDetenteur(detenteur);
-            infoType.setAdresseClient(adresseClient);
-            infoType.setAgree(agree);
-            infoType.setPhotoSignature(signature);
-            infoType.setPhotoLogo(logo);
-            infoType.setDateDebutTravaux(debutTravaux);
-            infoType.setDateFinTravaux(finTravaux);
+        
             if (chefOperationValue.getText().length() > 2) {
                 infoGenerale.put("chef des operations", chefOperation);
             }
@@ -797,12 +783,12 @@ public class InfoTypeView extends javax.swing.JPanel {
             }
             infoGenerale.put("debut des travaux", debutTravaux);
             infoGenerale.put("fin des travaux", finTravaux);
-            JOptionPane.showMessageDialog(null, "Vos données ont bien été pris en compte!.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, manageInternationalize.translate("enroll_message_data_window_infotype"), manageInternationalize.translate("success"), JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Aucune information n'a été renseignée.", "Succès", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+       
 
 
     private void showImageErrorDialog(String message) {
@@ -810,6 +796,7 @@ public class InfoTypeView extends javax.swing.JPanel {
     }
 
 
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adresseClient;
     private javax.swing.JTextField adresseClientValue;

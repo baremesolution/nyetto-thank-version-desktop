@@ -23,24 +23,17 @@ public class HomePage extends javax.swing.JPanel {
                     //
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion.png"))); // NOI18N
                     Thread.sleep(1000);
-                    System.out.println("un");
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion1.png"))); // NOI18N
-                    System.out.println("deux");
                     Thread.sleep(1000);
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tank.jpg"))); // NOI18N
-                    System.out.println("trois");
                     Thread.sleep(1000);
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion3.png"))); // NOI18N
-                    System.out.println("quatre");
                     Thread.sleep(1000);
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion4.jpeg"))); // NOI18N
-                    System.out.println("cinq");
                     Thread.sleep(1000);
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion5.png"))); // NOI18N
-                    System.out.println("six");
                     Thread.sleep(1000);
                     logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imageinsertion6.png"))); // NOI18N
-                    System.out.println("sept");
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);

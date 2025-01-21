@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import java.time.format.DateTimeFormatter;
+import nyettotank2.utilitaires.ManageInternationalize;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -25,6 +26,7 @@ public class Volmetrie {
     }
 
     private JOptionPane location = new JOptionPane();
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
     public String verifie(HashMap s, String key) {
         if (s.containsKey(key)) {
@@ -59,12 +61,15 @@ public class Volmetrie {
 
     public void genererTableVolumetrie(HashMap info, HashMap data, List<Line> myLine) {
 
+        String nyettofDirectory = System.getProperty("user.home") + "/Documents/" + "NyettoftTank_files/";
+        String nom = (String) info.get("table");
+        String filePath = nyettofDirectory + nom + ".xls";
+        
         if (info.containsKey("nombre divisions")) {
 
             BaremeArtisan bareme = new BaremeArtisan();
             String unit = info.get("unite des hauteurs").toString().toLowerCase();
 
-            String nom = (String) info.get("table");
             String typeValueReturn = (String) info.get("type value");
 
             try (org.apache.poi.ss.usermodel.Workbook workbook = new HSSFWorkbook()) {
@@ -205,34 +210,7 @@ public class Volmetrie {
                 cell15.setCellValue("E.N.E.M");
                 cell15.setCellStyle(styleHeader);
                 sheet.addMergedRegion(new CellRangeAddress(footerRow.getRowNum(), footerRow.getRowNum() + 1, 12, 14));
-
-//                // Sauvegarde 
-//                String filePath = System.getProperty("user.home") + "/Documents/" + nom + ".xls";
-//                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-//                workbook.write(fileOutputStream);
-//                fileOutputStream.close();
-//                workbook.close();
-//
-//                location.showMessageDialog(null, "Votre FICHIER SE TROUVE DANS \n  " + filePath, "LOCALISATION DU FICHIER",
-//                        JOptionPane.INFORMATION_MESSAGE);
-//
-//                String documentDirectory = System.getProperty("user.home") + "/Documents/";
-//                String nyettofDirectory = documentDirectory + "NyettoftTank_files/";
-//
-//                // Créer le répertoire si nécessaire
-//                File nyettofFile = new File(nyettofDirectory);
-//                if (!nyettofFile.exists()) {
-//                    nyettofFile.mkdirs();
-//                }
-//                String filePath = nyettofDirectory + nom + ".xls";
-//
-//                JOptionPane.showMessageDialog(null, "Votre FICHIER SE TROUVE DANS \n  " + filePath, "LOCALISATION DU FICHIER",
-//                        JOptionPane.INFORMATION_MESSAGE);
-
-                // Définir les répertoires pour le document et le sous-dossier NyettoftTank_files
-                String documentDirectory = System.getProperty("user.home") + "/Documents/";
-                String nyettofDirectory = documentDirectory + "NyettoftTank_files/";
-
+             
                 // Créer le répertoire NyettoftTank_files si nécessaire
                 File nyettofFile = new File(nyettofDirectory);
                 if (!nyettofFile.exists()) {
@@ -240,7 +218,6 @@ public class Volmetrie {
                 }
 
                 // Construire le chemin complet du fichier
-                String filePath = nyettofDirectory + nom + ".xls";
 
                 // Écrire le fichier Excel à l'emplacement spécifié
                 FileOutputStream fileOutputStream = new FileOutputStream(filePath);
@@ -251,19 +228,20 @@ public class Volmetrie {
                 workbook.close();
 
                 // Afficher un message de confirmation à l'utilisateur
-                location.showMessageDialog(null, "Votre FICHIER SE TROUVE DANS \n  " + filePath, "LOCALISATION DU FICHIER",
+                location.showMessageDialog(null, manageInternationalize.translate("emplacement_save_file") + " \n  " + filePath, manageInternationalize.translate("title_dialog_save_file"),
                         JOptionPane.INFORMATION_MESSAGE);
 
 
             } catch (IOException e) {
-                location.showMessageDialog(null, e.getMessage(), "Message d'erreur".toUpperCase(), JOptionPane.ERROR_MESSAGE);
+                location.showMessageDialog(null, e.getMessage(), manageInternationalize.translate("code_error_message").toUpperCase(), JOptionPane.ERROR_MESSAGE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        } else {
-            location.showMessageDialog(null, "Veillez renseigner le nombre de divisions ou une valeur décimale/entière du diamètre".toUpperCase(),
-                    "Message d'erreur".toUpperCase(), JOptionPane.ERROR_MESSAGE);
+        } 
+        else {
+            location.showMessageDialog(null, manageInternationalize.translate("give_division_number_diameter").toUpperCase(),
+                     manageInternationalize.translate("code_error_message").toUpperCase(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

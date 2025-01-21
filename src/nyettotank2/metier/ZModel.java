@@ -4,20 +4,19 @@ import static java.lang.Float.parseFloat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class ZModel extends AbstractTableModel {
 
     private List<Line> data = new ArrayList<Line>();
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
     String title[] = new String[2];
 
-    /* public ZModel(Object[][] data, String[] title){
-      this.data = data;
-      this.title = title;
-    }*/
-    public ZModel(String unitVolume, String unitHeight) {
+   
+    public ZModel(String unitVolume, String unitHeight) { 
         super();
-        title[0] = "Volume (unite de volume )";
-        title[1] = "Hauteur ( unite de longueur )";
+        title[0] =  manageInternationalize.translate("volume") + " ( " + manageInternationalize.translate("unite_volume") + " )";
+        title[1] =  manageInternationalize.translate("hauteur") + " ( " + manageInternationalize.translate("unite_longueur") + " )";
     }
 
     @Override

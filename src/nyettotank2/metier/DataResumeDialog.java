@@ -14,8 +14,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import nyettotank2.courbe.ZoneGeometrie;
 import nyettotank2.courbe.ZoneVolume;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class DataResumeDialog extends JDialog {
+    
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
     private BaremeArtisan bareme = new BaremeArtisan();
 
@@ -35,9 +38,10 @@ public class DataResumeDialog extends JDialog {
         String[] a = null;
         Matcher m;
 
-        System.out.println("affichage sur propiete  " + info);
-        System.out.println("affichage sur data  " + data);
-        String[] titre = {"NOM", "VALEUR", "UNITE"};
+        String[] titre = { manageInternationalize.translate("nom") ,
+            manageInternationalize.translate("valeur"),
+            manageInternationalize.translate("unite") 
+        };
 
         Object[][] dat = new Object[info.size() + data.size()][3];
         if (data.size() != 0) {
@@ -56,8 +60,6 @@ public class DataResumeDialog extends JDialog {
                     dat[i][2] = info.get("unite des hauteurs").toString();
 
                 } //else if (m.matches() && !a[0].contains("nombre")) {
-//                dat[i][2] = data.get("unite des hauteurs").toString();
-//            }
             }
         }
 
@@ -140,8 +142,8 @@ public class DataResumeDialog extends JDialog {
 
             if (!info.get("unite des hauteurs").toString().toLowerCase().equals("cm")) {
 
-                String[] titre = {"HAUTEUR(cm)", "HAUTEUR(" + info.get("unite des hauteurs").toString() + ")",
-                    "VOLUME(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
+                String[] titre = { manageInternationalize.translate("hauteur") + "(cm)", manageInternationalize.translate("hauteur") + "(" + info.get("unite des hauteurs").toString() + ")",
+                    manageInternationalize.translate("volume") + "(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
                 String unit = info.get("unite des hauteurs").toString();
                 diametre = bareme.convertToCentimeter(unit, diametre);
                 int diamInteger = (int) Math.floor(diametre);
@@ -182,7 +184,7 @@ public class DataResumeDialog extends JDialog {
                 mytable2 = new JTable(dat, titre);
             } else {
 
-                String[] titre = {"HAUTEUR(cm)", "VOLUME(" + info.get("unite de volume").toString() + ")",
+                String[] titre = {manageInternationalize.translate("hauteur") + "(cm)",  manageInternationalize.translate("volume") + "(" + info.get("unite de volume").toString() + ")",
                     "REMPLISSAGE"};
                 // int diam = parseInt(data.get("diametre").toString());
 
@@ -227,9 +229,8 @@ public class DataResumeDialog extends JDialog {
         } else {
             JOptionPane optionPane = new JOptionPane();
             optionPane.showMessageDialog(null,
-                    "veiller renseigner les differentes valeurs tels que : \n la longueur, le diametre, les differentes fleches des parties donnee geometrique"
-                            .toUpperCase(),
-                    "Message d'erreur".toUpperCase(), JOptionPane.ERROR_MESSAGE);
+                    manageInternationalize.translate("important_geometries_values_not_present").toUpperCase(),
+                   manageInternationalize.translate("code_error_message").toUpperCase(), JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -268,8 +269,8 @@ public class DataResumeDialog extends JDialog {
         Object[][] dat = null;
         if (!info.get("unite des hauteurs").toString().toLowerCase().equals("cm")) {
 
-            String[] titre = {"HAUTEUR(cm)", "HAUTEUR(" + info.get("unite des hauteurs").toString() + ")",
-                "VOLUME(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
+            String[] titre = {manageInternationalize.translate("hauteur") + "(cm)", manageInternationalize.translate("hauteur") + "(" + info.get("unite des hauteurs").toString() + ")",
+                manageInternationalize.translate("volume") + "(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
 
             float lastHeiht = bareme.convertToCentimeter(unit, abcisse.get(abcisse.size() - 1));
             int lineNumber = (int) Math.floor(lastHeiht);
@@ -314,7 +315,7 @@ public class DataResumeDialog extends JDialog {
             mytable = new JTable(dat, titre);
         } else {
 
-            String[] titre = {"HAUTEUR(cm)", "VOLUME(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
+            String[] titre = { manageInternationalize.translate("hauteur") + "(cm)",  manageInternationalize.translate("volume") + "(" + info.get("unite de volume").toString() + ")", "REMPLISSAGE"};
 
             float lastHeiht = abcisse.get(abcisse.size() - 1);
             int lineNumber = (int) Math.floor(lastHeiht);

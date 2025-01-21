@@ -14,25 +14,6 @@ import nyettotank2.metier.Sline;
  */
 public class ZoneVolume extends JPanel {
 
-    /* protected void paintComponent(Graphics g) {
-Graphics2D surface = (Graphics2D) g;
-Rectangle2D rectangle = new Rectangle2D.Double(10.0, 10.0, 200.0, 100.0);
-surface.draw(rectangle);
-}*/
-
- /*private Ellipse2D ellipse = new Ellipse2D.Double();
-private Rectangle2D rectangle = new Rectangle2D.Double();
-public Zone() {
-Rectangle2D r = new Rectangle2D.Double(50, 50, 190, 110);
-ellipse.setFrameFromCenter(r.getCenterX(), r.getCenterY(), r.getMaxX(), r.getMaxY());
-rectangle.setFrameFromDiagonal(ellipse.getX(), ellipse.getY(), r.getMaxX(), r.getMaxY());
-}
-protected void paintComponent(Graphics g) {
-Graphics2D surface = (Graphics2D) g;
-surface.draw(rectangle);
-surface.draw(ellipse);
-    
-}*/
     private List<Float> x;
      private List<Double> y;
     private String uniteVolume = "", uniteHeight = "";

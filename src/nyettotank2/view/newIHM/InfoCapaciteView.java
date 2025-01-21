@@ -10,12 +10,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import nyettotank2.model.InfoCapacite;
 import nyettotank2.utilitaires.FormValidator;
+import nyettotank2.utilitaires.ManageInternationalize;
 
 public class InfoCapaciteView extends javax.swing.JPanel {
 
-    private InfoCapacite infoCapacite = new InfoCapacite();
     private static HashMap infoGenerale = new HashMap();
     Color DefaultColor, ClickedColor;
 
@@ -694,7 +693,7 @@ public class InfoCapaciteView extends javax.swing.JPanel {
         try {
             saveCapacite();
         } catch (IOException ex) {
-            Logger.getLogger(InfoCapacite.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InfoCapaciteView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_suivantButtonCapaciteActionPerformed
 
@@ -865,7 +864,7 @@ public class InfoCapaciteView extends javax.swing.JPanel {
             try {
                 compartiments = Integer.parseInt(nombreCompartiments);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Veuillez vérifier vos champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, manageInternationalize.translate("incorrect_value_nombre_compartiment"), manageInternationalize.translate("code_error_message"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -875,7 +874,7 @@ public class InfoCapaciteView extends javax.swing.JPanel {
             try {
                 annee_fabrication = Integer.parseInt(anneeFabrication);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Veuillez vérifier le champs annee  de fabrication", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, manageInternationalize.translate("incorrect_value_anne_fabrication"), manageInternationalize.translate("code_error_message"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -885,7 +884,7 @@ public class InfoCapaciteView extends javax.swing.JPanel {
             try {
                 volume = Float.parseFloat(volumeNominal);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Veuillez vérifier vos champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, manageInternationalize.translate("incorrect_value_volume_nominal"), manageInternationalize.translate("code_error_message"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -895,25 +894,12 @@ public class InfoCapaciteView extends javax.swing.JPanel {
             try {
                 hauteur_temoin = Float.parseFloat(hauteurTemoin);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Une erreur s'est produite. Veuillez vérifier le champs hauteur temoin", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, manageInternationalize.translate("icorrect_value_hauteur_temoin"), manageInternationalize.translate("code_error_message"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
 
-        infoCapacite.setNomCapacite(nomCapacite);
-        infoCapacite.setNumeroSerieCapacite(numeroSerie);
-        infoCapacite.setProduitStockeCapacite(produitStocke);
-        infoCapacite.setVolumeNominalCapacite(volume);
-        infoCapacite.setHauteurTemoin(hauteur_temoin);
-        infoCapacite.setNombreCompartiment(compartiments);
-        infoCapacite.setFondCapacite(fondCapacite);
-        infoCapacite.setFabricant(fabricant);
-        infoCapacite.setAnneeFabrication(annee_fabrication);
-        infoCapacite.setTypeCapacite(typeCapacite);
-        infoCapacite.setEtancheite(etancheite);
-
         infoGenerale.put("fond capacite", fondCapacite);
-
         infoGenerale.put("type de la capacite", typeCapacite);
         infoGenerale.put("etancheite", etancheite);
         infoGenerale.put("hauteur temoin", hauteur_temoin);
@@ -939,10 +925,11 @@ public class InfoCapaciteView extends javax.swing.JPanel {
         if (anneeFabricationValue.getText().length() > 2) {
             infoGenerale.put("annee fabrication", anneeFabrication);
         }
-        JOptionPane.showMessageDialog(null, "Vos données ont bien été pris en compte!.", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, manageInternationalize.translate("enroll_message_data_window_infotype"), manageInternationalize.translate("success"), JOptionPane.INFORMATION_MESSAGE);
 
     }
 
+    private ManageInternationalize manageInternationalize = new ManageInternationalize();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel allPanel;
