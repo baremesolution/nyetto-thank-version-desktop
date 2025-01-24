@@ -1622,8 +1622,7 @@ public class BaremeArtisan {
                 for (int i = 0; i < (diametre / nb_divi); i++) {
 
                     sheet.addCell(new Label(3 * i + 4, 11,
-                            "H( " + info.get("unite des hauteurs").toString().toLowerCase()
-                            + " )"));
+                            "H(cm)"));
                     sheet.addCell(new Label(3 * i + 5, 11,
                             "V( " + info.get("unite de volume").toString().toLowerCase()
                             + ") "));

@@ -37,7 +37,7 @@ public class ZoneGeometrie extends JPanel {
 
         g.drawLine(470, 450, 50, 450);
         g.drawLine(50, 450, 50, 30);
-        g.drawString(manageInternationalize.translate("hauteur") + "(" + uniteHeight.toUpperCase() + ")", 475, 450);
+        g.drawString(manageInternationalize.translate("hauteur") + "(cm)", 475, 450);
         g.drawString( manageInternationalize.translate("volume") + "(" + uniteVolume.toUpperCase() + ")", 60, 30);
 
         String formeCapacite = info.get("forme de la capacite").toString().toUpperCase();
@@ -96,7 +96,7 @@ public class ZoneGeometrie extends JPanel {
         while (initial <= diametreUnite) {
             int x1 = (int) (initial * 400 / diametreUnite);
 
-            g.drawString("" + initial, (int) (50 + initial * 400 / diametreUnite), 460);
+            g.drawString("" + twoDecimale(initial, uniteHeight) , (int) (50 + initial * 400 / diametreUnite), 460);
             g.drawLine(x1 + 50, 450, 50 + x1, 50);
             initial += pas;
 
@@ -107,7 +107,7 @@ public class ZoneGeometrie extends JPanel {
         while (initial <= volFull) {
             int y1 = (int) ((int) 450 - 400 * initial / volFull);
 
-            g.drawString("" + initial, 20, (int) (450 - 400 * initial / volFull));
+            g.drawString("" + twoDecimale(initial, uniteVolume), 20, (int) (450 - 400 * initial / volFull));
             g.drawLine(50, y1, 450, y1);
             initial += pas;
         }
@@ -125,7 +125,7 @@ public class ZoneGeometrie extends JPanel {
             float t = bareme.convertToUnitDesire(uniteHeight, increment);
             volCalcule = bareme.convertToVolumeDesired(uniteVolume, volCalcule / 1000);
 
-            courbe.lineTo(50 + t * 400 / diametreUnite, 450 - 400 * volCalcule / volFull);
+            courbe.lineTo(50 + increment * 400 / diametreUnite, 450 - 400 * volCalcule / volFull);
 
         }
 
@@ -133,6 +133,29 @@ public class ZoneGeometrie extends JPanel {
 
     }
 
+    public String twoDecimale(double vol_fleche, String typeValue) {
+        if (typeValue.equals("decimale")) {
+
+            String ch = "" + vol_fleche;
+            int pos = ch.indexOf(".");
+            if (pos >= 0) {
+                if ((ch.length() - pos) > 4) {
+                    return ch.substring(0, pos + 4);
+                } else {
+                    return ch;
+                }
+            }
+            return ch;
+
+        } else {
+
+            return String.valueOf((int) Math.floor(vol_fleche));
+
+        }
+
+    }
+
+   
     public boolean synonymeFormeCapaciteMultiLangueForCylindre(String formeCapacite) {
 
         if (formeCapacite.equalsIgnoreCase("Cylindrique") || formeCapacite.equalsIgnoreCase("Cylindrical") || formeCapacite.equalsIgnoreCase("Zylindrisch")) {
